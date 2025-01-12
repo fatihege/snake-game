@@ -7,7 +7,7 @@ This is a terminal-based Snake game implemented in C++ with an Object-Oriented P
 - **`game/`**: Contains the `Game` class, which manages the game loop and orchestrates interactions between components.
 - **`snake/`**: Includes the `Snake` class, which encapsulates the snake's behavior, including movement, growth, and collision detection.
 - **`food/`**: Contains the `Food` class, which handles food generation and placement on the game grid.
-- **`console/`**: Provides the `Console` class, which abstracts terminal operations such as clearing the screen, moving the cursor, and hiding the cursor.
+- **`console/`**: Provides the `Console` class, which abstracts terminal operations such as moving the cursor, and hiding the cursor.
 - **`utils/`**: Contains configuration files and utility functions/constants used across the project.
 
 ## Prerequisites
@@ -32,7 +32,7 @@ This is a terminal-based Snake game implemented in C++ with an Object-Oriented P
     ```
 3. **Run the Game**
     ```shell
-    ./snake-game
+    ./snake_game
     ```
    
 ## Gameplay Instructions
