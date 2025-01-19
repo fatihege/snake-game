@@ -3,12 +3,11 @@
 void Snake::move(const Direction &direction) {
     if (
         direction != Direction::NONE &&
-        (currentDirection != Direction::UP || direction != Direction::DOWN) &&
-        (currentDirection != Direction::DOWN || direction != Direction::UP) &&
-        (currentDirection != Direction::LEFT || direction != Direction::RIGHT) &&
-        (currentDirection != Direction::RIGHT || direction != Direction::LEFT)
-    )
-        currentDirection = direction;
+        !(currentDirection == Direction::UP && direction == Direction::DOWN) &&
+        !(currentDirection == Direction::DOWN && direction == Direction::UP) &&
+        !(currentDirection == Direction::LEFT && direction == Direction::RIGHT) &&
+        !(currentDirection == Direction::RIGHT && direction == Direction::LEFT)
+    ) currentDirection = direction;
 
     for (size_t i = body.size(); i-- > 0;)
         if (i == 0)
@@ -37,7 +36,7 @@ bool Snake::checkBoundaryCollision() const {
 }
 
 bool Snake::checkBodyCollision() const {
-    if (currentDirection == Direction::NONE) return true;
+    if (currentDirection == Direction::NONE) return false;
 
     const auto &head = body.front();
     bool collision = false;

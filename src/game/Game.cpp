@@ -2,6 +2,7 @@
 #include "../console/Console.h"
 #include "../utils/Config.h"
 #include "../snake/Snake.h"
+#include "../utils/Utility.h"
 
 #include <conio.h>
 #include <iostream>
@@ -10,7 +11,8 @@
 void Game::run() {
     Console::clear();
 
-    const std::vector<std::pair<int, int> > body = {{4, 5}, {5, 5}, {6, 5}};
+    const std::pair randomPosition = {Utility::randomNumber(3, GRID_WIDTH - 2), Utility::randomNumber(3, GRID_HEIGHT - 2)};
+    const std::vector body = {randomPosition, {5, randomPosition.second}, {6, randomPosition.second}};
     snake = std::make_unique<Snake>(body);
     food = std::make_unique<Food>();
 
