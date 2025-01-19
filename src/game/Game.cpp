@@ -14,9 +14,9 @@ void Game::run() {
     snake = std::make_unique<Snake>(body);
 
     while (!isGameOver) {
-        render();
         processInput();
         update();
+        render();
         Sleep(FRAME_DELAY);
     }
 }
@@ -29,15 +29,15 @@ void Game::processInput() {
                 direction = Direction::UP;
                 break;
             case 's':
-                case 'S':
+            case 'S':
                 direction = Direction::DOWN;
                 break;
             case 'a':
-                case 'A':
+            case 'A':
                 direction = Direction::LEFT;
                 break;
             case 'd':
-                case 'D':
+            case 'D':
                 direction = Direction::RIGHT;
                 break;
             case 'q':
@@ -54,14 +54,15 @@ void Game::update() {
 }
 
 void Game::render() {
-    Console::clear();
+    if (Console::hasResized()) Console::clear();
 
     auto printHorizontalLine = [] {
         for (int i = 0; i < GRID_WIDTH + 2; ++i) std::cout << (i == 0 || i == GRID_WIDTH + 1 ? '+' : '-');
-        std::cout << '\n';
     };
 
+    Console::setCursorPosition(0, 0);
     printHorizontalLine();
+
     Console::setCursorPosition(0, GRID_HEIGHT + 1);
     printHorizontalLine();
 
@@ -72,10 +73,22 @@ void Game::render() {
         std::cout << '|';
     }
 
-    for (const auto &[x, y]: snake->getBody()) {
-        Console::setCursorPosition(x, y + 1);
-        std::cout << 'O';
+    static std::vector<std::pair<int, int> > previousBody;
+    const auto &body = snake->getBody();
+
+    for (const auto& segment : previousBody) {
+        if (std::ranges::find(body, segment) == body.end()) {
+            Console::setCursorPosition(segment.first, segment.second + 1);
+            std::cout << ' ';
+        }
     }
+
+    for (int i = 0; i < body.size(); ++i) {
+        Console::setCursorPosition(body[i].first, body[i].second + 1);
+        std::cout << (i == 0 ? 'O' : 'o');
+    }
+
+    previousBody = body;
 
     Console::setCursorPosition(0, GRID_HEIGHT + 2);
 }

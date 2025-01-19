@@ -9,14 +9,14 @@ void Snake::move(const Direction &direction) {
     for (int i = body.size() - 1; i >= 0; --i)
         if (i == 0)
             body[i] = {
-                direction == Direction::LEFT || direction == Direction::RIGHT
+                std::max(direction == Direction::LEFT || direction == Direction::RIGHT
                     ? body[i].first + (direction == Direction::LEFT ? -1 : 1)
-                    : body[i].first,
-                direction == Direction::UP || direction == Direction::DOWN
+                    : body[i].first, 0),
+                std::max(direction == Direction::UP || direction == Direction::DOWN
                     ? body[i].second + (direction == Direction::UP ? -1 : 1)
-                    : body[i].second
+                    : body[i].second, -1)
             };
-        else body[i] = {body[i - 1].first, body[i - 1].second};
+        else body[i] = {std::max(body[i - 1].first, 0), std::max(body[i - 1].second, -1)};
 }
 
 void Snake::grow() {

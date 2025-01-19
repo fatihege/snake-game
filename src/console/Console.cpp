@@ -4,6 +4,10 @@
 #include <windows.h>
 #include <conio.h>
 
+namespace {
+    COORD lastConsoleSize = {0, 0};
+}
+
 void Console::setCursorPosition(const int x, const int y) {
     const COORD coord = {static_cast<SHORT>(x), static_cast<SHORT>(y)};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -30,4 +34,27 @@ void Console::clear() {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, consoleSize, topLeft, &charsWritten);
 
     setCursorPosition(0, 0);
+}
+
+bool Console::hasResized() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    if (const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); !GetConsoleScreenBufferInfo(hConsole, &csbi))
+        return false;
+
+    if (const COORD currentSize = csbi.dwSize; currentSize.X != lastConsoleSize.X || currentSize.Y != lastConsoleSize.Y) {
+        lastConsoleSize = currentSize;
+        return true;
+    }
+
+    return false;
+}
+
+COORD Console::getConsoleSize() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    if (const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); GetConsoleScreenBufferInfo(hConsole, &csbi))
+        return csbi.dwSize;
+
+    return {0, 0};
 }
