@@ -52,6 +52,10 @@ void Game::processInput() {
 
 void Game::update() const {
     snake->move(direction);
+    if (snake->checkFood(food->getPosition())) {
+        food->refresh();
+        snake->grow(food->isSpecial() ? 2 : 1);
+    }
 }
 
 void Game::render() const {
@@ -75,7 +79,7 @@ void Game::render() const {
     }
 
     Console::setCursorPosition(food->getPosition().first, food->getPosition().second);
-    std::cout << 'X';
+    std::cout << (food->isSpecial() ? 'X' : 'x');
 
     static std::vector<std::pair<int, int> > previousBody;
     const auto &body = snake->getBody();

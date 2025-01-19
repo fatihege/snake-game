@@ -19,7 +19,11 @@ void Snake::move(const Direction &direction) {
         else body[i] = {std::max(body[i - 1].first, 0), std::max(body[i - 1].second, 0)};
 }
 
-void Snake::grow() {
+bool Snake::checkFood(const std::pair<int, int> &position) const {
+    return body[0].first == position.first && body[0].second == position.second;
+}
+
+void Snake::grow(const int amount) {
     std::cout << "Grew\n";
 }
 

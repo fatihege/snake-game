@@ -14,7 +14,9 @@ public:
 
     void move(const Direction &direction);
 
-    void grow();
+    [[nodiscard]] bool checkFood(const std::pair<int, int> &position) const;
+
+    void grow(int amount);
 
     bool checkCollision(const std::pair<int, int> &point);
 
