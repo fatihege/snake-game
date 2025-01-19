@@ -38,14 +38,14 @@ This is a terminal-based Snake game implemented in C++ with an Object-Oriented P
 ## Gameplay Instructions
 
 - Use the WASD to control the snake's direction.
-- Collect the food (`X`) to grow your snake and increase your score.
+- Collect the food (`x` or `X`) to grow your snake and increase your score. 
+- Special food appears occasionally (`X`) with a 20% chance and will grow your snake by 2 segments instead of 1.
 - Avoid colliding with the walls or your own body, as it will end the game.
 - Press `Q` to quit the game.
 
 ## Features
 
 - **Object-Oriented Design:** The game is built using OOP principles, ensuring modularity and ease of maintenance.
-- **Singleton Pattern:** Utilized for the Console class to manage terminal operations efficiently.
 - **Cross-Platform Compatibility:** With minor adjustments, the game can run on different platforms (currently designed for Windows).
 - **Configurable Settings:** Easily modify grid size, frame rate, and other parameters in utils/Config.h.
 

@@ -53,8 +53,8 @@ void Game::processInput() {
 void Game::update() const {
     snake->move(direction);
     if (snake->checkFood(food->getPosition())) {
-        food->refresh();
         snake->grow(food->isSpecial() ? 2 : 1);
+        food->refresh();
     }
 }
 

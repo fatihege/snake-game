@@ -16,7 +16,7 @@ public:
 
     [[nodiscard]] bool checkFood(const std::pair<int, int> &position) const;
 
-    void grow(int amount);
+    void grow(short amount);
 
     bool checkCollision(const std::pair<int, int> &point);
 

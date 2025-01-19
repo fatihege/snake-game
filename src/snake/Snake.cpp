@@ -20,11 +20,11 @@ void Snake::move(const Direction &direction) {
 }
 
 bool Snake::checkFood(const std::pair<int, int> &position) const {
-    return body[0].first == position.first && body[0].second == position.second;
+    return body.front() == position;
 }
 
-void Snake::grow(const int amount) {
-    std::cout << "Grew\n";
+void Snake::grow(const short amount) {
+    for (short i = 0; i < amount; ++i) body.push_back(body.back());
 }
 
 bool Snake::checkCollision(const std::pair<int, int> &point) {
