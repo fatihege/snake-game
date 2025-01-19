@@ -12,6 +12,7 @@ void Game::run() {
 
     const std::vector<std::pair<int, int> > body = {{4, 5}, {5, 5}, {6, 5}};
     snake = std::make_unique<Snake>(body);
+    food = std::make_unique<Food>();
 
     while (!isGameOver) {
         processInput();
@@ -49,11 +50,11 @@ void Game::processInput() {
     }
 }
 
-void Game::update() {
+void Game::update() const {
     snake->move(direction);
 }
 
-void Game::render() {
+void Game::render() const {
     if (Console::hasResized()) Console::clear();
 
     auto printHorizontalLine = [] {
@@ -73,18 +74,21 @@ void Game::render() {
         std::cout << '|';
     }
 
+    Console::setCursorPosition(food->getPosition().first, food->getPosition().second);
+    std::cout << 'X';
+
     static std::vector<std::pair<int, int> > previousBody;
     const auto &body = snake->getBody();
 
     for (const auto& segment : previousBody) {
         if (std::ranges::find(body, segment) == body.end()) {
-            Console::setCursorPosition(segment.first, segment.second + 1);
+            Console::setCursorPosition(segment.first, segment.second);
             std::cout << ' ';
         }
     }
 
     for (int i = 0; i < body.size(); ++i) {
-        Console::setCursorPosition(body[i].first, body[i].second + 1);
+        Console::setCursorPosition(body[i].first, body[i].second);
         std::cout << (i == 0 ? 'O' : 'o');
     }
 

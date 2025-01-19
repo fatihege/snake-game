@@ -14,9 +14,9 @@ void Snake::move(const Direction &direction) {
                     : body[i].first, 0),
                 std::max(direction == Direction::UP || direction == Direction::DOWN
                     ? body[i].second + (direction == Direction::UP ? -1 : 1)
-                    : body[i].second, -1)
+                    : body[i].second, 0)
             };
-        else body[i] = {std::max(body[i - 1].first, 0), std::max(body[i - 1].second, -1)};
+        else body[i] = {std::max(body[i - 1].first, 0), std::max(body[i - 1].second, 0)};
 }
 
 void Snake::grow() {

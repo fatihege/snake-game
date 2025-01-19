@@ -13,4 +13,6 @@ add_executable(snake_game main.cpp
         src/snake/Snake.cpp
         src/snake/Snake.h
         src/utils/Config.h
+        src/utils/Utility.cpp
+        src/utils/Utility.h
 )
