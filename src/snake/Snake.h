@@ -1,30 +1,22 @@
 #pragma once
 
-#include <memory>
 #include <mutex>
 #include <vector>
 
+#include "../utils/Config.h"
+
 class Snake {
-    static std::unique_ptr<Snake> instance;
-    static std::once_flag initFlag;
-
-    Snake(const std::vector<std::pair<int, int> > &body, const std::pair<int, int> &direction);
-
     std::vector<std::pair<int, int> > body;
-    std::pair<int, int> direction;
 
 public:
-    static Snake &getInstance(const std::vector<std::pair<int, int> > &body, const std::pair<int, int> &direction);
+    explicit Snake(const std::vector<std::pair<int, int> > &body): body(body) {
+    }
 
-    Snake(const Snake&) = delete;
-
-    Snake& operator=(const Snake&) = delete;
-
-    void move();
+    void move(const Direction &direction);
 
     void grow();
 
     bool checkCollision(const std::pair<int, int> &point);
 
-    const std::vector<std::pair<int, int> > &getBody() const;
+    [[nodiscard]] const std::vector<std::pair<int, int> > &getBody() const;
 };

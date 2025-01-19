@@ -16,7 +16,7 @@ void Console::hideCursor() {
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
 }
 
-void Console::clearScreen() {
+void Console::clear() {
     const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD charsWritten;

@@ -6,5 +6,5 @@ public:
 
     static void hideCursor();
 
-    static void clearScreen();
+    static void clear();
 };

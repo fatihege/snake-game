@@ -3,20 +3,20 @@
 #include <iostream>
 #include <ostream>
 
-Snake::Snake(const std::vector<std::pair<int, int> > &body,
-             const std::pair<int, int> &direction): body(body), direction(direction) {
-}
+void Snake::move(const Direction &direction) {
+    if (direction == Direction::NONE) return;
 
-Snake &Snake::getInstance(const std::vector<std::pair<int, int> > &body,
-                          const std::pair<int, int> &direction) {
-    std::call_once(initFlag, [body, direction] {
-        instance.reset(new Snake(body, direction));
-    });
-    return *instance;
-}
-
-void Snake::move() {
-    std::cout << "Moved\n";
+    for (int i = body.size() - 1; i >= 0; --i)
+        if (i == 0)
+            body[i] = {
+                direction == Direction::LEFT || direction == Direction::RIGHT
+                    ? body[i].first + (direction == Direction::LEFT ? -1 : 1)
+                    : body[i].first,
+                direction == Direction::UP || direction == Direction::DOWN
+                    ? body[i].second + (direction == Direction::UP ? -1 : 1)
+                    : body[i].second
+            };
+        else body[i] = {body[i - 1].first, body[i - 1].second};
 }
 
 void Snake::grow() {
@@ -31,6 +31,3 @@ bool Snake::checkCollision(const std::pair<int, int> &point) {
 const std::vector<std::pair<int, int> > &Snake::getBody() const {
     return body;
 }
-
-std::unique_ptr<Snake> Snake::instance;
-std::once_flag Snake::initFlag;
