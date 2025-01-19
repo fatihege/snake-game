@@ -15,11 +15,14 @@ void Game::run() {
     food = std::make_unique<Food>();
 
     while (!isGameOver) {
+        render();
         processInput();
         update();
-        render();
         Sleep(FRAME_DELAY);
     }
+
+    std::cout << "\nYour Score: " << snake->getBody().size() - body.size() << "\nPress Enter to exit...\n";
+    std::cin.get();
 }
 
 void Game::processInput() {
@@ -50,10 +53,13 @@ void Game::processInput() {
     }
 }
 
-void Game::update() const {
+void Game::update() {
+    if (snake->checkBoundaryCollision() || snake->checkBodyCollision()) isGameOver = true;
+
     snake->move(direction);
+
     if (snake->checkFood(food->getPosition())) {
-        snake->grow(food->isSpecial() ? 2 : 1);
+        snake->grow(food->isSpecial());
         food->refresh();
     }
 }
@@ -84,7 +90,7 @@ void Game::render() const {
     static std::vector<std::pair<int, int> > previousBody;
     const auto &body = snake->getBody();
 
-    for (const auto& segment : previousBody) {
+    for (const auto &segment: previousBody) {
         if (std::ranges::find(body, segment) == body.end()) {
             Console::setCursorPosition(segment.first, segment.second);
             std::cout << ' ';

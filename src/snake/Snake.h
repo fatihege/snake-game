@@ -7,6 +7,7 @@
 
 class Snake {
     std::vector<std::pair<int, int> > body;
+    Direction currentDirection = Direction::NONE;
 
 public:
     explicit Snake(const std::vector<std::pair<int, int> > &body): body(body) {
@@ -16,9 +17,11 @@ public:
 
     [[nodiscard]] bool checkFood(const std::pair<int, int> &position) const;
 
-    void grow(short amount);
+    void grow(bool special);
 
-    bool checkCollision(const std::pair<int, int> &point);
+    bool checkBoundaryCollision() const;
+
+    bool checkBodyCollision() const;
 
     [[nodiscard]] const std::vector<std::pair<int, int> > &getBody() const;
 };

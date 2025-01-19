@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <windows.h>
-#include <conio.h>
 
 namespace {
     COORD lastConsoleSize = {0, 0};
@@ -42,7 +41,8 @@ bool Console::hasResized() {
     if (const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); !GetConsoleScreenBufferInfo(hConsole, &csbi))
         return false;
 
-    if (const COORD currentSize = csbi.dwSize; currentSize.X != lastConsoleSize.X || currentSize.Y != lastConsoleSize.Y) {
+    if (const COORD currentSize = csbi.dwSize; currentSize.X != lastConsoleSize.X ||
+        currentSize.Y != lastConsoleSize.Y) {
         lastConsoleSize = currentSize;
         return true;
     }

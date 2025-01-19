@@ -16,7 +16,7 @@ private:
 
     void processInput();
 
-    void update() const;
+    void update();
 
     void render() const;
 };

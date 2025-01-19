@@ -8,7 +8,7 @@ Food::Food() {
 }
 
 void Food::refresh() {
-    position = {Utility::randomNumber(0, GRID_WIDTH), Utility::randomNumber(0, GRID_HEIGHT)};
+    position = {Utility::randomNumber(1, GRID_WIDTH), Utility::randomNumber(1, GRID_HEIGHT)};
     special = Utility::randomNumber(0, 5) == 1;
 }
 
