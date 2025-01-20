@@ -55,6 +55,7 @@ This is a terminal-based Snake game implemented in C++ with an Object-Oriented P
 - **`Snake.h`**/**`Snake.cpp`**: Manages the snake's position, direction, and growth mechanics.
 - **`Food.h`**/**`Food.cpp`**: Handles food placement and regeneration when eaten by the snake.
 - **`Console.h`**/**`Console.cpp`**: Provides platform-specific utilities for terminal rendering and input handling.
+- **`Utility.h`**/**`Utility.cpp`**: Offers utility functions such as random number generation.
 - **`Config.h`**: Contains constants and configuration settings (e.g., grid size, frame delay).
 
 ## Configuration
