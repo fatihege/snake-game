@@ -1,6 +1,6 @@
 # Snake Game
 
-This is a terminal-based Snake game implemented in C++ with an Object-Oriented Programming (OOP) approach. The project uses design patterns like Singleton for efficient resource management and provides a modular, maintainable codebase with clear separation of concerns.
+This is a terminal-based Snake game implemented in C++ with an Object-Oriented Programming (OOP) approach. The project uses a modular, maintainable codebase with clear separation of concerns.
 
 ## Directories
 
